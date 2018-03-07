@@ -1,0 +1,36 @@
+{
+  "name": "preact-perf-profiler",
+  "version": "1.0.0",
+  "description": "A HOC for measuring rendering performance with Preact",
+  "main": "dist/preact-perf-profiler.cjs.js",
+  "module": "dist/preact-perf-profiler.esm.js",
+  "browser": "dist/preact-perf-profiler.umd.js",
+  "scripts": {
+    "test": "exit 1",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "pretest": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krofdrakula/preact-perf-profiler.git"
+  },
+  "keywords": [
+    "preact",
+    "performance"
+  ],
+  "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
+  },
+  "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
+  "devDependencies": {
+    "eslint": "4.18.2",
+    "preact": "8.2.7",
+    "rollup": "0.56.5",
+    "rollup-plugin-commonjs": "9.0.0",
+    "rollup-plugin-node-resolve": "3.2.0",
+    "undom": "0.3.3"
+  }
+}

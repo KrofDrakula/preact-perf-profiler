@@ -1,4 +1,4 @@
-# Preact Perf Profiler
+# preact-perf-profiler
 
 Ever wanted to measure the time spent rendering a component in the
 timeline, but soon got tired of manually sprinkling `performance.mark()`

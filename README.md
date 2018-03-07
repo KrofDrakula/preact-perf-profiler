@@ -88,10 +88,14 @@ import { h, render } from 'preact';
 import withProfiler from 'preact-perf-profiler';
 import ExpensiveComponent from './expensive_component';
 
-const ProfiledExpensiveComponent = withProfiler(ExpensiveComponent);
+const ProfiledExpensiveComponent = withProfiler(
+  ExpensiveComponent,
+  ({ iterations }) => `Expensive(${iterations})`
+);
 
 render(<ProfiledExpensiveComponent iterations={1000}/>, document.body);
 ```
 
 Open the Performance tab and you'll now see each render of
 `ProfiledExpensiveComponent` in the measures in Dev Tools.
+The measure name will also be displayed as `Expensive(1000)`.

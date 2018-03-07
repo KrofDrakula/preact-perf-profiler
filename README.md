@@ -53,7 +53,7 @@ const ProfiledUser = withProfile(
 );
 ```
 
-## Example for pure functions
+## Walkthrough
 
 Say you have a pure component that you'd like to measure:
 

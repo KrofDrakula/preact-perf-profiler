@@ -1,12 +1,12 @@
 {
   "name": "preact-perf-profiler",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "description": "A HOC for measuring rendering performance with Preact",
   "main": "dist/preact-perf-profiler.cjs.js",
   "module": "dist/preact-perf-profiler.esm.js",
   "browser": "dist/preact-perf-profiler.umd.js",
   "scripts": {
-    "test": "echo 'No tests defined yet!' && exit 1",
+    "test": "ava",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "pretest": "npm run build"
@@ -25,12 +25,27 @@
     "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
   },
   "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "sources": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "./test/_register.js"
+    ]
+  },
   "devDependencies": {
+    "@babel/register": "7.0.0-beta.40",
+    "ava": "1.0.0-beta.3",
+    "babel-preset-env": "1.6.1",
     "eslint": "4.18.2",
     "preact": "8.2.7",
     "rollup": "0.56.5",
     "rollup-plugin-commonjs": "9.0.0",
     "rollup-plugin-node-resolve": "3.2.0",
+    "sinon": "4.4.2",
     "undom": "0.3.3"
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from 'preact';
-import { getName, getStartMark, getEndMark } from './name';
+import { createMeasure, getStartMark, getEndMark } from './name';
 
 const fromFunction = (PureFunction, name = PureFunction.name) => {
-  const measure = getName(name);
+  const measure = createMeasure(name);
 
   return class PerfComponent extends Component {
     componentWillMount() {

@@ -1,4 +1,4 @@
-export const getName = name => (...args) =>
+export const createMeasure = name => (...args) =>
   typeof name == 'function' ? name(...args) : name.toString();
 
 export const getStartMark = (id, measureName, ...args) =>

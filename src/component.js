@@ -1,7 +1,7 @@
-import { getName, getStartMark, getEndMark } from './name';
+import { createMeasure, getStartMark, getEndMark } from './name';
 
 const fromComponent = (ComponentClass, name = ComponentClass.name) => {
-  const measure = getName(name);
+  const measure = createMeasure(name);
   const proto = ComponentClass.prototype;
 
   const componentWillMount = proto.componentWillMount;

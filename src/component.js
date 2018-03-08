@@ -1,24 +1,48 @@
-import { Component } from 'preact';
-import getName from './name';
+import { getName, getStartMark, getEndMark } from './name';
 
 const fromComponent = (ComponentClass, name = ComponentClass.name) => {
   const measure = getName(name);
-  const willReceiveProps = ComponentClass.prototype.componentWillReceiveProps;
-  const componentDidUpdate = ComponentClass.prototype.componentDidUpdate;
+  const proto = ComponentClass.prototype;
 
-  ComponentClass.prototype.componentWillReceiveProps = function (...args) {
-    performance.mark(measure(args[0]) + ':start');
-    if (willReceiveProps)
-      return willReceiveProps.apply(this, args);
+  const componentWillMount = proto.componentWillMount;
+  const componentDidMount = proto.componentDidMount;
+  const willReceiveProps = proto.componentWillReceiveProps;
+  const componentDidUpdate = proto.componentDidUpdate;
+
+  proto.componentWillMount = function(...args) {
+    this.__measureId = 1;
+    performance.mark(
+      getStartMark(this.__measureId, measure, this.props, this.state)
+    );
+    if (componentWillMount) return componentWillMount.apply(this, args);
   };
 
-  ComponentClass.prototype.componentDidUpdate = function (...args) {
+  proto.componentWillReceiveProps = function(...args) {
+    this.__measureId++;
+    performance.mark(getStartMark(this.__measureId, measure, ...args));
+    if (willReceiveProps) return willReceiveProps.apply(this, args);
+  };
+
+  proto.componentDidMount = function(...args) {
+    performance.mark(getEndMark(this.__measureId, measure, ...args));
+    if (componentDidMount) return componentDidMount.apply(this, args);
+  };
+
+  proto.componentDidUpdate = function(...args) {
     let result;
-    if (componentDidUpdate)
-      result = componentDidUpdate.apply(this, args);
-    const measureName = measure(this.props);
-    performance.mark(`${measureName}:end`);
-    performance.measure(measureName, `${measureName}:start`, `${measureName}:end`);
+    if (componentDidUpdate) result = componentDidUpdate.apply(this, args);
+    const endMeasureName = getEndMark(
+      this.__measureId,
+      measure,
+      this.props,
+      this.state
+    );
+    performance.mark(endMeasureName);
+    performance.measure(
+      measure(this.props, this.state),
+      getStartMark(this.__measureId, measure, this.props, this.state),
+      endMeasureName
+    );
     return result;
   };
 

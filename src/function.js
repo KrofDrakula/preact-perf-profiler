@@ -1,18 +1,33 @@
 import { Component } from 'preact';
-import getName from './name';
+import { getName, getStartMark, getEndMark } from './name';
 
 const fromFunction = (PureFunction, name = PureFunction.name) => {
   const measure = getName(name);
 
   return class PerfComponent extends Component {
+    componentWillMount() {
+      this.__measureId = 1;
+      performance.mark(getStartMark(this.__measureId, measure, this.props));
+    }
+
     componentWillReceiveProps(nextProps) {
-      performance.mark(`${measure(nextProps)}:start`);
+      performance.mark(getStartMark(this.__measureId, measure, nextProps));
     }
+
+    componentDidMount() {
+      performance.mark(getEndMark(this.__measureId, measure, this.props));
+    }
+
     componentDidUpdate() {
-      const measureName = measure(this.props);
-      performance.mark(`${measureName}:end`);
-      performance.measure(measureName, `${measureName}:start`, `${measureName}:end`);
+      const endMeasureName = getEndMark(this.__measureId, measure, this.props);
+      performance.mark(endMeasureName);
+      performance.measure(
+        measure(this.props),
+        `${this.__measureId}:${measure(this.props)}:start`,
+        endMeasureName
+      );
     }
+
     render(props) {
       return PureFunction(props);
     }

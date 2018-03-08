@@ -6,7 +6,7 @@
   "module": "dist/preact-perf-profiler.esm.js",
   "browser": "dist/preact-perf-profiler.umd.js",
   "scripts": {
-    "test": "exit 1",
+    "test": "echo 'No tests defined yet!' && exit 1",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "pretest": "npm run build"

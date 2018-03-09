@@ -19,7 +19,9 @@ test.afterEach(() => {
   delete global.document;
 });
 
-test('should work with a bare class component and adopt class name', t => {
+const getId = mark => mark.split(':')[0];
+
+test.serial('should work with a bare class component and adopt class name', t => {
   class A extends Component {
     render({ myProp }) {
       return <p>{myProp}</p>;
@@ -40,24 +42,24 @@ test('should work with a bare class component and adopt class name', t => {
   );
   t.is(performance.measure.callCount, 1, 'should have created one measure');
 
-  t.is(
-    performance.mark.getCall(0).args[0],
-    '1:A:start',
+  t.true(
+    performance.mark.getCall(0).args[0].endsWith(':A:start'),
     'marked start of initial render'
   );
-  t.is(
-    performance.mark.getCall(1).args[0],
-    '1:A:end',
+
+  t.true(
+    performance.mark.getCall(1).args[0].endsWith(':A:end'),
     'marked end of initial render'
   );
-  t.deepEqual(
-    performance.measure.getCall(0).args,
-    ['A', '1:A:start', '1:A:end'],
+
+  t.is(
+    performance.measure.getCall(0).args[0],
+    'A',
     'measure name is equal to wrapped class name'
   );
 });
 
-test('should work with a bare class on re-render', t => {
+test.serial('should work with a bare class on re-render', t => {
   class A extends Component {
     render({ myProp }) {
       return <p>{myProp}</p>;
@@ -70,19 +72,35 @@ test('should work with a bare class on re-render', t => {
 
   t.is(rendered.childNodes[0].nodeValue, 'Woop!', 'should have rerendered');
 
+  t.is(performance.mark.callCount, 4, 'should have made 4 marks');
+  t.is(performance.measure.callCount, 2, 'should have made 2 measures');
+
   t.is(
-    performance.mark.getCall(2).args[0],
-    '2:A:start',
-    'should increment start mark ids'
+    getId(performance.mark.getCall(0).args[0]),
+    getId(performance.mark.getCall(1).args[0]),
+    'should generate matching ids for paired calls'
   );
+
   t.is(
-    performance.mark.getCall(3).args[0],
-    '2:A:end',
-    'should increment end mark ids'
+    getId(performance.mark.getCall(2).args[0]),
+    getId(performance.mark.getCall(3).args[0]),
+    'should generate matching ids for paired calls'
   );
-  t.deepEqual(
-    performance.measure.getCall(1).args,
-    ['A', '2:A:start', '2:A:end'],
-    'should have created measure with same name, other marks'
+
+  const firstId = getId(performance.mark.getCall(0).args[0]);
+  const secondId = getId(performance.mark.getCall(2).args[0]);
+
+  t.not(
+    firstId,
+    secondId,
+    'ids should not match for two different measurements'
+  );
+
+  t.is(performance.measure.callCount, 2);
+
+  t.is(
+    performance.measure.getCall(0).args[0],
+    performance.measure.getCall(1).args[0],
+    'measures should be the same between renders'
   );
 });

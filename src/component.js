@@ -10,38 +10,39 @@ const fromComponent = (ComponentClass, name = ComponentClass.name) => {
   const componentDidUpdate = proto.componentDidUpdate;
 
   proto.componentWillMount = function(...args) {
-    this.__measureId = 1;
-    performance.mark(
-      getStartMark(this.__measureId, measure, this.props, this.state)
-    );
+    this.__id = 1;
+    performance.mark(getStartMark(this.__id, measure, this.props, this.state));
     if (componentWillMount) return componentWillMount.apply(this, args);
   };
 
   proto.componentWillReceiveProps = function(...args) {
-    this.__measureId++;
-    performance.mark(getStartMark(this.__measureId, measure, ...args));
+    this.__id++;
+    performance.mark(getStartMark(this.__id, measure, ...args));
     if (willReceiveProps) return willReceiveProps.apply(this, args);
   };
 
   proto.componentDidMount = function(...args) {
-    performance.mark(getEndMark(this.__measureId, measure, ...args));
-    if (componentDidMount) return componentDidMount.apply(this, args);
+    let result;
+    if (componentDidMount) result = componentDidMount.apply(this, args);
+    const endMarkName = getEndMark(this.__id, measure, ...args);
+    performance.mark(endMarkName);
+    performance.measure(
+      measure(this.props, this.state),
+      getStartMark(this.__id, measure, this.props, this.state),
+      endMarkName
+    );
+    return result;
   };
 
   proto.componentDidUpdate = function(...args) {
     let result;
     if (componentDidUpdate) result = componentDidUpdate.apply(this, args);
-    const endMeasureName = getEndMark(
-      this.__measureId,
-      measure,
-      this.props,
-      this.state
-    );
-    performance.mark(endMeasureName);
+    const endMarkName = getEndMark(this.__id, measure, this.props, this.state);
+    performance.mark(endMarkName);
     performance.measure(
       measure(this.props, this.state),
-      getStartMark(this.__measureId, measure, this.props, this.state),
-      endMeasureName
+      getStartMark(this.__id, measure, this.props, this.state),
+      endMarkName
     );
     return result;
   };

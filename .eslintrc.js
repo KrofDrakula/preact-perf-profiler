@@ -4,7 +4,7 @@ module.exports = {
     node: true,
     es6: true
   },
-  extends: 'eslint:recommended',
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   plugins: ['react'],
   parserOptions: {
     sourceType: 'module'
@@ -15,6 +15,10 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-unused-vars': ['error', { varsIgnorePattern: 'h' }],
-    'no-global-assign': ['error']
+    'no-global-assign': ['error'],
+    'react/jsx-key': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off'
   }
 };

@@ -32,6 +32,28 @@
     "sources": [
       "src/**/*.js"
     ],
+    "babel": {
+      "testOptions": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "node": "current"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "transform-react-jsx",
+            {
+              "pragma": "h"
+            }
+          ]
+        ]
+      }
+    },
     "require": [
       "./test/_register.js"
     ]
@@ -39,11 +61,10 @@
   "devDependencies": {
     "@babel/register": "7.0.0-beta.40",
     "ava": "1.0.0-beta.3",
-    "babel-plugin-transform-jsx": "2.0.0",
-    "babel-plugin-transform-react-jsx": "6.24.1",
-    "babel-preset-env": "1.6.1",
-    "babel-preset-react": "6.24.1",
+    "babel-plugin-transform-react-jsx": "7.0.0-beta.3",
+    "babel-preset-env": "7.0.0-beta.3",
     "eslint": "4.18.2",
+    "eslint-plugin-react": "7.7.0",
     "preact": "8.2.7",
     "rollup": "0.56.5",
     "rollup-plugin-commonjs": "9.0.0",

@@ -1,22 +1,12 @@
 import test from 'ava';
-import { h, render, Component } from 'preact';
+import { createGlobals, resetGlobals, getId } from './_helpers';
+import { h, render, Component, options } from 'preact';
 import sinon from 'sinon';
-import undom from 'undom';
 import fromComponent from '../src/component';
 
-const _performance = global.performance;
+test.before(() => options.debounceRendering = fn => fn());
 
-const createGlobals = () => {
-  global.performance = { mark: sinon.spy(), measure: sinon.spy() };
-  global.document = undom();
-};
-
-const resetGlobals = () => {
-  global.performance = _performance;
-  delete global.document;
-};
-
-const getId = mark => mark.split(':')[0];
+test.after(() => delete options.debounceRendering);
 
 test('bare class, single render', t => {
   createGlobals();
@@ -140,18 +130,33 @@ test('lifecycle methods called correctly', t => {
   resetGlobals();
 });
 
-test('use props for measure name in initial and subsequent render', t => {
+test('use props and state for measure name in initial and subsequent render', t => {
   createGlobals();
 
-  class A extends Component { }
-  const B = fromComponent(A, ({ name }) => `A(name=${name})`);
+  class A extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { count: 0 };
+    }
+    incrementCount() {
+      this.setState({ count: this.state.count + 1 });
+    }
+    render() {
+      return <div>Hello</div>;
+    }
+  }
+  const B = fromComponent(A, ({ name }, { count }) => `A(name=${name},count=${count})`);
 
   const rendered = render(<B name="Harry" />, document.body);
   render(<B name="Sally" />, document.body, rendered);
 
-  t.is(performance.measure.callCount, 2);
-  t.is(performance.measure.getCall(0).args[0], 'A(name=Harry)');
-  t.is(performance.measure.getCall(1).args[0], 'A(name=Sally)');
+  const instance = rendered._component;
+  instance.incrementCount();
+
+  t.is(performance.measure.callCount, 3);
+  t.is(performance.measure.getCall(0).args[0], 'A(name=Harry,count=0)');
+  t.is(performance.measure.getCall(1).args[0], 'A(name=Sally,count=0)');
+  t.is(performance.measure.getCall(2).args[0], 'A(name=Sally,count=1)');
 
   resetGlobals();
 });

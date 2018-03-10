@@ -6,25 +6,32 @@ const fromFunction = (PureFunction, name = PureFunction.name) => {
 
   return class PerfComponent extends Component {
     componentWillMount() {
-      this.__measureId = 1;
-      performance.mark(getStartMark(this.__measureId, measure, this.props));
-    }
-
-    componentWillReceiveProps(nextProps) {
-      performance.mark(getStartMark(this.__measureId, measure, nextProps));
+      this.__perfId = Math.random().toString(16).slice(2);
+      performance.mark(getStartMark(this.__perfId, measure, this.props));
     }
 
     componentDidMount() {
-      performance.mark(getEndMark(this.__measureId, measure, this.props));
+      const endMarkName = getEndMark(this.__perfId, measure, this.props);
+      performance.mark(endMarkName);
+      performance.measure(
+        measure(this.props),
+        getStartMark(this.__perfId, measure, this.props),
+        endMarkName
+      );
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this.__perfId = Math.random().toString(16).slice(2);
+      performance.mark(getStartMark(this.__perfId, measure, nextProps));
     }
 
     componentDidUpdate() {
-      const endMeasureName = getEndMark(this.__measureId, measure, this.props);
-      performance.mark(endMeasureName);
+      const endMarkName = getEndMark(this.__perfId, measure, this.props);
+      performance.mark(endMarkName);
       performance.measure(
         measure(this.props),
-        `${this.__measureId}:${measure(this.props)}:start`,
-        endMeasureName
+        getStartMark(this.__perfId, measure, this.props),
+        endMarkName
       );
     }
 

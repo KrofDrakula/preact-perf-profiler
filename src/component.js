@@ -18,7 +18,7 @@ const fromComponent = (ComponentClass, name = ComponentClass.name) => {
   proto.componentDidMount = function (...args) {
     let result;
     if (componentDidMount) result = componentDidMount.apply(this, args);
-    const endMarkName = getEndMark(this.__perfId, measure, ...args);
+    const endMarkName = getEndMark(this.__perfId, measure, this.props, this.state);
     performance.mark(endMarkName);
     performance.measure(
       measure(this.props, this.state),
@@ -30,7 +30,8 @@ const fromComponent = (ComponentClass, name = ComponentClass.name) => {
 
   proto.componentWillReceiveProps = function (...args) {
     this.__perfId = Math.random().toString(16).slice(2);
-    performance.mark(getStartMark(this.__perfId, measure, ...args));
+    const [nextProps, nextState] = args;
+    performance.mark(getStartMark(this.__perfId, measure, nextProps, nextState));
     if (willReceiveProps) return willReceiveProps.apply(this, args);
   };
 

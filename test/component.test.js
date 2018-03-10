@@ -136,4 +136,22 @@ test('lifecycle methods called correctly', t => {
     'willReceiveProps gets nextProps'
   );
   t.is(mocks.didUpdate.callCount, 1, 'should have called didUpdate');
+
+  resetGlobals();
+});
+
+test('use props for measure name in initial and subsequent render', t => {
+  createGlobals();
+
+  class A extends Component { }
+  const B = fromComponent(A, ({ name }) => `A(name=${name})`);
+
+  const rendered = render(<B name="Harry" />, document.body);
+  render(<B name="Sally" />, document.body, rendered);
+
+  t.is(performance.measure.callCount, 2);
+  t.is(performance.measure.getCall(0).args[0], 'A(name=Harry)');
+  t.is(performance.measure.getCall(1).args[0], 'A(name=Sally)');
+
+  resetGlobals();
 });

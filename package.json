@@ -9,7 +9,8 @@
     "test": "ava",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,16 @@
 import { Component } from 'preact';
 import { createMeasure, getStartMark, getEndMark } from './name';
 
-const fromFunction = (PureFunction, name = PureFunction.name) => {
+const fromFunction = (PureFunction, name = PureFunction.name, { performance } = {}) => {
+  if (!performance) {
+    if (typeof window != 'undefined' && window.performance)
+      performance = window.performance;
+    else if (typeof global != 'undefined' && global.performance)
+      performance = global.performance;
+    else
+      throw new Error('No global performance API found, none provided!');
+  }
+
   const measure = createMeasure(name);
 
   return class PerfComponent extends Component {

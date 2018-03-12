@@ -1,6 +1,15 @@
 import { createMeasure, getStartMark, getEndMark } from './name';
 
-const fromComponent = (ComponentClass, name = ComponentClass.name) => {
+const fromComponent = (ComponentClass, name = ComponentClass.name, { performance } = {}) => {
+  if (!performance) {
+    if (typeof window != 'undefined' && window.performance)
+      performance = window.performance;
+    else if (typeof global != 'undefined' && global.performance)
+      performance = global.performance;
+    else
+      throw new Error('No global performance API found, none provided!');
+  }
+
   const measure = createMeasure(name);
   const proto = ComponentClass.prototype;
 

@@ -1,5 +1,5 @@
 import test from 'ava';
-import { createGlobals, resetGlobals, getId } from './_helpers';
+import { createGlobals, resetGlobals, getId, createPerfApi } from './_helpers';
 import { h, render, Component, options } from 'preact';
 import sinon from 'sinon';
 import fromComponent from '../src/component';
@@ -8,8 +8,12 @@ test.before(() => options.debounceRendering = fn => fn());
 
 test.after(() => delete options.debounceRendering);
 
+test.beforeEach(createGlobals);
+
+test.afterEach(resetGlobals);
+
 test('bare class, single render', t => {
-  createGlobals();
+  const performance = createPerfApi();
 
   class A extends Component {
     render({ myProp }) {
@@ -17,7 +21,7 @@ test('bare class, single render', t => {
     }
   }
 
-  const B = fromComponent(A);
+  const B = fromComponent(A, undefined, { performance });
   const rendered = render(<B myProp="Yay!" />, document.body);
 
   t.true(Component.isPrototypeOf(B), 'Wrapped component is a Preact component');
@@ -40,12 +44,10 @@ test('bare class, single render', t => {
     ['A', startMark, endMark],
     'should have correct measure name and marks'
   );
-
-  resetGlobals();
 });
 
 test('bare class, re-render', t => {
-  createGlobals();
+  const performance = createPerfApi();
 
   class A extends Component {
     render({ myProp }) {
@@ -53,7 +55,7 @@ test('bare class, re-render', t => {
     }
   }
 
-  const B = fromComponent(A);
+  const B = fromComponent(A, undefined, { performance });
   let rendered = render(<B myProp="Yay!" />, document.body);
   rendered = render(<B myProp="Woop!" />, document.body, rendered);
 
@@ -78,12 +80,10 @@ test('bare class, re-render', t => {
     performance.measure.getCall(1).args[0],
     'measures should be the same between renders'
   );
-
-  resetGlobals();
 });
 
 test('lifecycle methods called correctly', t => {
-  createGlobals();
+  const performance = createPerfApi();
 
   const mocks = {
     willMount: sinon.spy(),
@@ -106,7 +106,7 @@ test('lifecycle methods called correctly', t => {
     render() { return <div>Yes.</div>; }
   }
 
-  const B = fromComponent(A);
+  const B = fromComponent(A, undefined, { performance });
 
   const rendered = render(<B />, document.body);
 
@@ -126,12 +126,10 @@ test('lifecycle methods called correctly', t => {
     'willReceiveProps gets nextProps'
   );
   t.is(mocks.didUpdate.callCount, 1, 'should have called didUpdate');
-
-  resetGlobals();
 });
 
 test('use props and state for measure name in initial and subsequent render', t => {
-  createGlobals();
+  const performance = createPerfApi();
 
   class A extends Component {
     constructor(props) {
@@ -145,7 +143,12 @@ test('use props and state for measure name in initial and subsequent render', t 
       return <div>Hello</div>;
     }
   }
-  const B = fromComponent(A, ({ name }, { count }) => `A(name=${name},count=${count})`);
+
+  const B = fromComponent(
+    A,
+    ({ name }, { count }) => `A(name=${name},count=${count})`,
+    { performance }
+  );
 
   const rendered = render(<B name="Harry" />, document.body);
   render(<B name="Sally" />, document.body, rendered);
@@ -157,6 +160,4 @@ test('use props and state for measure name in initial and subsequent render', t 
   t.is(performance.measure.getCall(0).args[0], 'A(name=Harry,count=0)');
   t.is(performance.measure.getCall(1).args[0], 'A(name=Sally,count=0)');
   t.is(performance.measure.getCall(2).args[0], 'A(name=Sally,count=1)');
-
-  resetGlobals();
 });

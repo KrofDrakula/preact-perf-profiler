@@ -8,12 +8,14 @@ You need this.
 
 ## Usage
 
-`withProfiler(AnyComponent [, name]) => Component`
+`withProfiler(AnyComponent [, name [, options]]) => Component`
 
   - `AnyComponent` can be either a function that returns
      JSX or a class
   - `name` is optional and allows you to configure the measure
     name in the Performance tab
+  - `options` is optional and allows you to pass a custom
+    implementation for the [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance)
 
 ### Configuring the measure name
 

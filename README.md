@@ -10,7 +10,7 @@ You need this.
 
 ## Demo
 
-![](assets/example.png)
+![](assets/example.gif)
 
 You can open the example URL as a standalone page to see how this looks
 in Dev Tools:

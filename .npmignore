@@ -1,4 +1,4 @@
-.eslintrc
+.eslintrc.js
 .vscode
 .prettierrc
 .travis.yml

@@ -8,6 +8,19 @@ and `performance.measure()` everywhere?
 
 You need this.
 
+## Demo
+
+![](assets/example.png)
+
+You can open the example URL as a standalone page to see how this looks
+in Dev Tools:
+
+https://3826y5ky55.codesandbox.io/
+
+Here's the full source:
+
+[![Edit 3826y5ky55](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/3826y5ky55?module=%2Fcomponents%2Fexpensive.js)
+
 ## Usage
 
 `withProfiler(AnyComponent [, name [, options]]) => Component`

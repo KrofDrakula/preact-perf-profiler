@@ -1,5 +1,7 @@
 # preact-perf-profiler
 
+[![Build Status](https://travis-ci.org/KrofDrakula/preact-perf-profiler.svg?branch=master)](https://travis-ci.org/KrofDrakula/preact-perf-profiler)
+
 Ever wanted to measure the time spent rendering a component in the
 timeline, but soon got tired of manually sprinkling `performance.mark()`
 and `performance.measure()` everywhere?

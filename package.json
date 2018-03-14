@@ -1,6 +1,6 @@
 {
   "name": "preact-perf-profiler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A HOC for measuring rendering performance with Preact",
   "main": "dist/preact-perf-profiler.cjs.js",
   "module": "dist/preact-perf-profiler.esm.js",

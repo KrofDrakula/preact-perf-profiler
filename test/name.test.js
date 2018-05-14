@@ -21,11 +21,11 @@ test('create measure from function', t => {
 test('generate correct start mark given measure', t => {
   t.plan(1);
   const measure = createMeasure('ExampleComponent');
-  t.is(getStartMark(10, measure), '10:ExampleComponent:start');
+  t.is(getStartMark(10, measure), '\u269B 10:ExampleComponent:start');
 });
 
 test('generate correct end mark given measure', t => {
   t.plan(1);
   const measure = createMeasure('ExampleComponent');
-  t.is(getEndMark(25, measure), '25:ExampleComponent:end');
+  t.is(getEndMark(25, measure), '\u269B 25:ExampleComponent:end');
 });

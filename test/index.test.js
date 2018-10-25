@@ -1,7 +1,8 @@
 import test from 'ava';
 import { createPerfApi } from './_helpers';
 import { h, Component } from 'preact';
-import withProfiler, { isClass } from '../src/index';
+import { isClass } from '../src/isClass';
+import withProfiler from '../src/index';
 
 test('isClass should distinguish between pure function and component class', t => {
   t.true(isClass(class extends Component {}));

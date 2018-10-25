@@ -16,17 +16,23 @@
     "type": "git",
     "url": "git+https://github.com/krofdrakula/preact-perf-profiler.git"
   },
-  "keywords": ["preact", "performance"],
-  "author":
-    "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
+  "keywords": [
+    "preact",
+    "performance"
+  ],
+  "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
   },
   "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
   "ava": {
-    "files": ["test/**/*.js"],
-    "sources": ["src/**/*.js"],
+    "files": [
+      "test/**/*.js"
+    ],
+    "sources": [
+      "src/**/*.js"
+    ],
     "babel": {
       "testOptions": {
         "presets": [
@@ -49,23 +55,25 @@
         ]
       }
     },
-    "require": ["./test/_register.js"]
+    "require": [
+      "./test/_register.js"
+    ]
   },
   "devDependencies": {
-    "@babel/register": "7.0.0-beta.42",
+    "@babel/register": "7.0.0",
     "ava": "1.0.0-beta.3",
     "babel-plugin-transform-react-jsx": "7.0.0-beta.3",
     "babel-preset-env": "7.0.0-beta.3",
-    "eslint": "4.19.1",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-react": "7.7.0",
-    "preact": "8.2.7",
-    "prettier": "1.11.1",
-    "rollup": "0.57.1",
-    "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "sinon": "4.4.8",
-    "undom": "0.3.3"
+    "eslint": "5.7.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "eslint-plugin-react": "7.11.1",
+    "preact": "8.3.1",
+    "prettier": "1.14.3",
+    "rollup": "0.66.6",
+    "rollup-plugin-commonjs": "9.2.0",
+    "rollup-plugin-node-resolve": "3.4.0",
+    "sinon": "7.0.0",
+    "undom": "0.4.0"
   }
 }

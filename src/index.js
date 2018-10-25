@@ -1,10 +1,6 @@
 import fromComponent from './component';
 import fromFunction from './function';
-
-export const isClass = X =>
-  typeof X == 'function' &&
-  typeof X.prototype != 'undefined' &&
-  typeof X.prototype.render != 'undefined';
+import { isClass } from './isClass';
 
 const withProfiler = (Wrapped, name, options) =>
   isClass(Wrapped)

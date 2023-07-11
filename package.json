@@ -1,71 +1,47 @@
 {
   "name": "preact-perf-profiler",
-  "version": "1.0.3",
+  "version": "2.0.0-preview1",
   "description": "A HOC for measuring rendering performance with Preact",
-  "main": "dist/preact-perf-profiler.cjs.js",
-  "module": "dist/preact-perf-profiler.esm.js",
-  "browser": "dist/preact-perf-profiler.umd.js",
+  "type": "module",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.umd.js",
+      "import": "./dist/index.js",
+      "node": "./dist/index.umd.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "ava",
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "pretest": "npm run build",
-    "prepublish": "npm test"
+    "build": "vite build",
+    "dev": "vite",
+    "prepublish": "vite build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krofdrakula/preact-perf-profiler.git"
   },
-  "keywords": ["preact", "performance"],
-  "author":
-    "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
+  "keywords": [
+    "preact",
+    "performance"
+  ],
+  "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
   },
   "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
-  "ava": {
-    "files": ["test/**/*.js"],
-    "sources": ["src/**/*.js"],
-    "babel": {
-      "testOptions": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              }
-            }
-          ]
-        ],
-        "plugins": [
-          [
-            "transform-react-jsx",
-            {
-              "pragma": "h"
-            }
-          ]
-        ]
-      }
-    },
-    "require": ["./test/_register.js"]
+  "peerDependencies": {
+    "preact": ">=10"
   },
   "devDependencies": {
-    "@babel/register": "7.0.0-beta.42",
-    "ava": "1.0.0-beta.3",
-    "babel-plugin-transform-react-jsx": "7.0.0-beta.3",
-    "babel-preset-env": "7.0.0-beta.3",
-    "eslint": "4.19.1",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-react": "7.7.0",
-    "preact": "8.2.7",
-    "prettier": "1.11.1",
-    "rollup": "0.57.1",
-    "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "sinon": "4.4.8",
-    "undom": "0.3.3"
+    "preact": ">=10"
+  },
+  "dependencies": {
+    "vite": "^4.4.2",
+    "vite-plugin-dts": "^3.2.0",
+    "vitest": "^0.33.0"
   }
 }

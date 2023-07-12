@@ -3,6 +3,9 @@
     "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "module": "ESNext",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "strict": true
   }
 }

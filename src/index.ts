@@ -41,18 +41,16 @@ opts.diffed = (vnode) => {
       performance.clearMarks(startMark);
       performance.clearMarks(endMark);
     } else if (import.meta.env.DEV) {
-      console.error(`Cannot find start mark`);
+      console.error(`Cannot find start mark for `, vnode);
     }
   }
   originals.diffed?.(vnode);
 };
 
-export const track = <T extends ComponentType>(component: T): T => {
+export const track = <T extends ComponentType<any>>(component: T): void => {
   trackedComponents.add(component);
-  return component;
 };
 
-export const untrack = <T extends ComponentType>(component: T): T => {
+export const untrack = <T extends ComponentType<any>>(component: T): void => {
   trackedComponents.delete(component);
-  return component;
 };

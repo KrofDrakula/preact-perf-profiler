@@ -1,6 +1,6 @@
 {
   "name": "preact-perf-profiler",
-  "version": "2.0.0-preview1",
+  "version": "2.0.0-pre1",
   "description": "A HOC for measuring rendering performance with Preact",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -37,9 +37,7 @@
     "preact": ">=10"
   },
   "devDependencies": {
-    "preact": ">=10"
-  },
-  "dependencies": {
+    "preact": ">=10",
     "vite": "^4.4.2",
     "vite-plugin-dts": "^3.2.0",
     "vitest": "^0.33.0"

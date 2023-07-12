@@ -34,7 +34,7 @@ opts.diffed = (vnode) => {
       const endMark = `${startMark}_end`;
       performance.mark(endMark);
       performance.measure(
-        `⏱️ ${component.displayName ?? component.name ?? "component"}`,
+        `⚛️ ${component.displayName ?? component.name ?? "component"}`,
         startMark,
         endMark
       );

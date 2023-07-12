@@ -7,6 +7,7 @@ export default defineConfig({
   },
   build: {
     outDir: resolve(__dirname, "demo"),
+    sourcemap: true,
     target: "esnext",
     emptyOutDir: true,
   },

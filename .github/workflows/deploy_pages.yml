@@ -1,0 +1,31 @@
+name: deploy-pages
+run-name: Deploy demo to GitHub Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: "latest"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm run build-demo --base=/preact-perf-profiler/
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: "demo"
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: build-pages
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    steps:
+      - uses: actions/deploy-pages@v2

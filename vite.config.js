@@ -3,9 +3,6 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  esbuild: {
-    jsxImportSource: "preact",
-  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -20,6 +17,5 @@ export default defineConfig({
       external: ["preact"],
     },
   },
-  root: "./src/demo",
   plugins: [dts({ entryRoot: "src" })],
 });

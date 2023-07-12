@@ -16,7 +16,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "build-demo": "vite build --config vite.config.demo.js",
+    "dev": "vite --config vite.config.demo.js",
     "prepublish": "vite build"
   },
   "repository": {

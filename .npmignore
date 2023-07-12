@@ -1,0 +1,8 @@
+node_modules
+/dist
+/demo
+/assets
+/pnpm-lock.yaml
+/vite.config.*
+/src/demo
+/src/vite.env.d.ts

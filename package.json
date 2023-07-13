@@ -1,6 +1,6 @@
 {
   "name": "preact-perf-profiler",
-  "version": "2.0.0-beta7",
+  "version": "2.0.0-beta8",
   "description": "A HOC for measuring rendering performance with Preact",
   "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
   "license": "MIT",
@@ -23,7 +23,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     }
   },

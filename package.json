@@ -1,25 +1,13 @@
 {
   "name": "preact-perf-profiler",
-  "version": "2.0.0-beta3",
+  "version": "2.0.0-beta4",
   "description": "A HOC for measuring rendering performance with Preact",
-  "type": "module",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.js",
-  "exports": {
-    ".": {
-      "default": "./dist/index.umd.js",
-      "import": "./dist/index.js",
-      "node": "./dist/index.umd.js",
-      "require": "./dist/index.umd.js"
-    }
+  "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
   },
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "vite build && rm -rf dist/demo",
-    "build-demo": "vite build --config vite.config.demo.js",
-    "dev": "vite --config vite.config.demo.js",
-    "prepublish": "vite build"
-  },
+  "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krofdrakula/preact-perf-profiler.git"
@@ -28,12 +16,31 @@
     "preact",
     "performance"
   ],
-  "author": "Klemen Slavič <krof.drakula@gmail.com> (https://krofdrakula.github.io/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/krofdrakula/preact-perf-profiler/issues"
+  "type": "module",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.umd.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.js"
+    }
   },
-  "homepage": "https://github.com/krofdrakula/preact-perf-profiler#readme",
+  "types": "dist/index.d.ts",
+  "files": [
+    "./dist",
+    "./src",
+    "./README.md",
+    "./LICENSE",
+    "./package.json",
+    "./tsconfig.json"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build-demo": "vite build --config vite.config.demo.js",
+    "dev": "vite --config vite.config.demo.js",
+    "prepublish": "vite build"
+  },
   "peerDependencies": {
     "preact": ">=10"
   },

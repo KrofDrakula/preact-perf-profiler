@@ -8,7 +8,9 @@ This library allows you to register a Preact component for measuring its renderi
 
 ## Demo
 
-Check out the repository and run the `dev` script to launch a local demo.
+Open [the demo site](https://krofdrakula.github.io/preact-perf-profiler/) to see it in action.
+
+You can also check out the demo locally and run it on your own machine:
 
 ```bash
 pnpm install
